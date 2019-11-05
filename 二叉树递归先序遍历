@@ -13,9 +13,10 @@ class Solution {
         if (root == null) {
             return res;
         }
-        //访问根结点，把当前结点值插入到 res 中
+        //先访问根结点，再递归遍历左子树，再递归遍历右子树
         res.add(root.val);
-        res.addAll(preorderTraversal(root.left));                                 res.addAll(preorderTraversal(root.right));
+        res.addAll(preorderTraversal(root.left));                                 
+        res.addAll(preorderTraversal(root.right));
         return res;
     }
 }
