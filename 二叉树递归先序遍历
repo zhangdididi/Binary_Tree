@@ -1,0 +1,21 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        //访问根结点，把当前结点值插入到 res 中
+        res.add(root.val);
+        res.addAll(preorderTraversal(root.left));                                 res.addAll(preorderTraversal(root.right));
+        return res;
+    }
+}
