@@ -1,0 +1,36 @@
+public boolean isComplete1(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        // 1 先层序遍历
+        boolean flag = false;
+        while (!queue.isEmpty()) {
+            TreeNode temp = queue.poll();
+            // 2 两个阶段
+            if (!flag) {
+                //第一阶段： 每个结点都有两个子树
+                if (temp.left != null && temp.right != null) {
+                    queue.offer(temp.left);
+                    queue.offer(temp.right);
+                } else if (temp.left != null) {
+                    //第二阶段前： 遇到特殊的结点，只有左子树或者没有子树，就到第二阶段
+                    queue.offer(temp.left);
+                    flag = true;
+                } else if (temp.right != null) {
+                    //如果这个临界结点只有右子树，没有左子树，那就false
+                    return false;
+                } else {
+                    //左右子树都为空
+                    flag = true;
+                }
+            } else {
+                //第二阶段： 接下来的每个结点必须都没有子树，有的话就false
+                if (temp.left != null || temp.right != null) {
+                    return false;
+                }
+            }
+        } //end while
+        return true;
+}
