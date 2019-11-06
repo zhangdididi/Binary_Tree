@@ -1,0 +1,7 @@
+public static int size1(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        //1 + 左子树结点个数 + 右子树结点个数
+        return 1 + size1(root.left) + size1(root.right);
+}
