@@ -1,0 +1,38 @@
+class Solution {
+    private int index = 0;
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        index = 0;
+        //递归过程中需要处理某个子树，[0, inOrder.length) 当前处理的子树对应的中序遍历结果是什么.
+        return buildTreeHelper(preorder, inorder, 0, inorder.length);
+    }
+    private TreeNode buildTreeHelper(int[] preorder, int[] inorder,
+                                     int inorderLeft, int inorderRight) {
+        //先判定非法情况
+        if (inorderLeft >= inorderRight) {
+            //中序遍历是不存在的，是一个空子树
+            return null;
+        }
+        if (index >= preorder.length) {
+            return null;
+        }
+        //取出当前值来构建当前子树的根结点
+        TreeNode root = new TreeNode(preorder[index]);
+        index++;//取完这个结点再取下一个结点
+        // 找到结点中序遍历的位置
+        //pos 只要先序遍历和中序遍历序列是对的，不会出现-1的情况
+        int pos = find(inorder, inorderLeft, inorderRight, root.val);
+        root.left = buildTreeHelper(preorder, inorder, inorderLeft, pos);
+        root.right = buildTreeHelper(preorder, inorder,pos + 1, inorderRight);
+        return root;
+
+    }
+
+    private int find(int[] inorder, int inorderLeft, int inorderRight, int val) {
+        for (int i = inorderLeft; i < inorderRight; i++) {
+            if (inorder[i] == val) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
