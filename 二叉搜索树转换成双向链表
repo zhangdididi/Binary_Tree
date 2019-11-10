@@ -1,33 +1,33 @@
-    public TreeNode Convert(TreeNode pRootOfTree) {
-        //使用中序遍历，就能够得到有序序列
-        //把相邻的元素互相指向，left 指向前一个元素，right 指向后一个元素
-        //1. 判定特殊情况，空树或者只有一个结点
-        //2. 递归左子树变成双向链表，并返回第一个结点
-        //3. 如果左侧链表有结点不为null ，当前左侧链表尾巴找到，
-        // 左侧链表的尾结点和当前root结点相互指向
-        //4. 递归将右子树也构造成双向链表，同时的到右子树链表第一个结点
-        //  把右侧链表的头结点和当前结点相互指向
-        // 返回整个链表头结点
-        if (pRootOfTree == null) {
-            return null;
-        }
-        if (pRootOfTree.left == null && pRootOfTree.right == null) {
-            return pRootOfTree;
-        }
-        TreeNode left = Convert(pRootOfTree.left);
-        TreeNode leftTail = left;//左侧链表头结点
-        while (leftTail != null && leftTail.right != null) {
-            leftTail = leftTail.right;
-        }
-        //循环结束，leftTail 就指向左侧链表最后一个结点
-        if (left != null) {
-            leftTail.right = pRootOfTree;
-            pRootOfTree.left = leftTail;
-        }
-        TreeNode right = Convert(pRootOfTree.right);
-        if (right != null) {
-            pRootOfTree.right = right;
-            right.left = pRootOfTree;
-        }
-        return left == null ? pRootOfTree : left;
+public TreeNode Convert(TreeNode pRootOfTree) {
+    //使用中序遍历，就能够得到有序序列
+    //把相邻的元素互相指向，left 指向前一个元素，right 指向后一个元素
+    //1. 判定特殊情况，空树或者只有一个结点
+    //2. 递归左子树变成双向链表，并返回第一个结点
+    //3. 如果左侧链表有结点不为null ，当前左侧链表尾巴找到，
+    // 左侧链表的尾结点和当前root结点相互指向
+    //4. 递归将右子树也构造成双向链表，同时的到右子树链表第一个结点
+    //  把右侧链表的头结点和当前结点相互指向
+    // 返回整个链表头结点
+    if (pRootOfTree == null) {
+        return null;
     }
+    if (pRootOfTree.left == null && pRootOfTree.right == null) {
+        return pRootOfTree;
+    }
+    TreeNode left = Convert(pRootOfTree.left);
+    TreeNode leftTail = left;//左侧链表头结点
+    while (leftTail != null && leftTail.right != null) {
+        leftTail = leftTail.right;
+    }
+    //循环结束，leftTail 就指向左侧链表最后一个结点
+    if (left != null) {
+        leftTail.right = pRootOfTree;
+        pRootOfTree.left = leftTail;
+    }
+    TreeNode right = Convert(pRootOfTree.right);
+    if (right != null) {
+        pRootOfTree.right = right;
+        right.left = pRootOfTree;
+    }
+    return left == null ? pRootOfTree : left;
+}
