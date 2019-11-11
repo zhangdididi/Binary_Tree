@@ -37,3 +37,45 @@ private void tree2strHelper(TreeNode root) {
     tree2strHelper(root.right);
     sb.append(")");
 }
+
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    
+    private StringBuilder stringbuilder = new StringBuilder();
+    public String tree2str(TreeNode t) {
+        if (t == null) {
+            return "";
+        }
+        tree2strHelper(t);
+        stringbuilder.deleteCharAt(stringbuilder.length() - 1);
+        return stringbuilder.toString();
+    }
+    
+    public void tree2strHelper(TreeNode t) {
+        if (t == null) {
+            return;
+        }
+        if (stringbuilder.length() != 0) {
+        stringbuilder.append("(");            
+        }
+        stringbuilder.append(t.val);
+        tree2strHelper(t.left);
+        if (t.left == null && t.right != null) {
+            stringbuilder.append("()");
+        }
+        tree2strHelper(t.right);   
+        stringbuilder.append(")");
+
+        
+    }
+}
