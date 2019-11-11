@@ -19,3 +19,33 @@ class Solution {
         return res;
     }
 }
+
+
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode curNode = root;
+        TreeNode preNode = null;
+        while (true) {
+            while (curNode != null) {
+                stack.push(curNode);
+                curNode = curNode.left;
+            }
+            if (stack.isEmpty()) {
+                break;
+            }
+            //拿到栈顶元素，先不取出，判断右子树是否存在，或者是否刚才被访问过
+            TreeNode topNode = stack.peek();
+            if (topNode.right == null || topNode.right == preNode) {
+                stack.pop();
+                res.add(topNode.val);
+                preNode = topNode;
+            } else {
+                curNode = topNode.right;
+            }
+        } //end while(true)
+        return res;
+    }
+}
