@@ -1,0 +1,18 @@
+  public boolean isBalanced(TreeNode root) {
+      //空树 true
+      if (root == null) {
+          return true;
+      }
+      //没有子树，true
+      if (root.left == null && root.right == null) {
+          return true;
+      }
+      //求左右子树高度，判断差值是否 <= 1
+      int leftDepth = maxDepth(root.left);
+      int rightDepth = maxDepth(root.right);
+      // 递归判定左子树和右子树是否也平衡
+      if (leftDepth > 1 || rightDepth > 1) {
+          return false;
+      }
+      return isBalanced(root.left) && isBalanced(root.right);
+  }
