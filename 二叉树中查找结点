@@ -1,15 +1,15 @@
 //先比较根结点，递归左，递归右
-    public static Node find (Node root, char toFInd) {
-        if (root == null) {
-            return null;
-        }
-        if (root.val == toFInd) {
-            return root;
-        }
-        //递归找左子树
-        Node ret = find(root.left, toFInd);
-        if (ret != null) {
-            return ret;
-        }
-        return find(root.right, toFInd);
+public static Node find (Node root, char toFInd) {
+    if (root == null) {
+        return null;
     }
+    if (root.val == toFInd) {
+        return root;
+    }
+    //递归找左子树
+    Node ret = find(root.left, toFInd);
+    if (ret != null) {
+        return ret;
+    }
+    return find(root.right, toFInd);
+}
