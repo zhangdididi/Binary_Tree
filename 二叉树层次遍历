@@ -15,7 +15,7 @@ public class Test {
         //1. 先序遍历解决，递归时候参数上加上当前一个层数
         // 就可以根据层数知道当前节点往哪个数组放置
         if (root == null) {
-            return null;
+            return res;
         }
         //正常二叉树从1开始计算， 为了和下标对应方便，从0开始
         helper(root, 0);
@@ -30,7 +30,7 @@ public class Test {
             
         }
         res.get(level).add(root.val);
-        if (root != null) {
+        if (root.left != null) {
             helper(root.left, level + 1);
         }
         if (root.right != null) {
