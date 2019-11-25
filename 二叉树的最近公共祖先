@@ -23,12 +23,12 @@ private boolean findNode(TreeNode root, TreeNode p, TreeNode q) {
     //递归在右子树找 p  q
     int right = findNode(root.right,p, q) ? 1 : 0;
     //对比一下当前结点有没有找到, 比较身份
-    int mid = (root == p || root == q) ? 1 : 0;
-    if (left + right + mid >= 2) {
+    int base = (root == p || root == q) ? 1 : 0;
+    if (left + right + base >= 2) {
         //找到 lca ，当前root
         lca = root;
     }
-    return (left + right + mid) > 0;
+    return (left + right + base) > 0;
 }
 
 
@@ -51,16 +51,16 @@ class Solution {
         return lca;
     }
     
-    public boolean findNode(TreeNode curNode, TreeNode p, TreeNode q) {
-        if (curNode == null) {
+    public boolean findNode(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
             return false;
         }
-        int left = findNode(curNode.left, p, q) ? 1 : 0;
-        int right = findNode(curNode.right, p, q) ? 1 : 0;
-        int mid = (curNode == q || curNode == p) ? 1 : 0;
-        if ((mid + left + right) >= 2) {
-            lca = curNode;
+        int left = findNode(root.left, p, q) ? 1 : 0;
+        int right = findNode(root.right, p, q) ? 1 : 0;
+        int base = (root == q || root == p) ? 1 : 0;
+        if ((base + left + right) >= 2) {
+            lca = root;
         }
-        return (mid + left + right) > 0;
+        return (base + left + right) > 0;
     }
 }
