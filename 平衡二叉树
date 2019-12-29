@@ -1,31 +1,31 @@
-  public boolean isBalanced(TreeNode root) {
-      //空树 true
-      if (root == null) {
-          return true;
-      }
-      //没有子树，true
-      if (root.left == null && root.right == null) {
-          return true;
-      }
-      //求左右子树高度，判断差值是否 <= 1
-      int leftDepth = maxDepth(root.left);
-      int rightDepth = maxDepth(root.right);
-      // 递归判定左子树和右子树是否也平衡
-      if (leftDepth - rightDepth > 1 || rightDepth - leftDepth > 1) {
-          return false;
-      }
-      return isBalanced(root.left) && isBalanced(root.right);
-  }
-
-    private int maxDepth(TreeNode root) {
-        //空树为0
-        if (root == null) {
-            return 0;
-        }
-        if (root.left == null && root.right == null) {
-            return 1;
-        }
-        int leftDepth = maxDepth(root.left);
-        int rightDepth = maxDepth(root.right);
-        return 1 + (leftDepth > rightDepth ? leftDepth : rightDepth);
+public boolean isBalanced(TreeNode root) {
+    //空树 true
+    if (root == null) {
+        return true;
     }
+    //没有子树，true
+    if (root.left == null && root.right == null) {
+        return true;
+    }
+    //求左右子树高度，判断差值是否 <= 1
+    int leftDepth = maxDepth(root.left);
+    int rightDepth = maxDepth(root.right);
+    // 递归判定左子树和右子树是否也平衡
+    if (leftDepth - rightDepth > 1 || rightDepth - leftDepth > 1) {
+        return false;
+    }
+    return isBalanced(root.left) && isBalanced(root.right);
+}
+
+private int maxDepth(TreeNode root) {
+    //空树为0
+    if (root == null) {
+        return 0;
+    }
+    if (root.left == null && root.right == null) {
+        return 1;
+    }
+    int leftDepth = maxDepth(root.left);
+    int rightDepth = maxDepth(root.right);
+    return 1 + (leftDepth > rightDepth ? leftDepth : rightDepth);
+}
