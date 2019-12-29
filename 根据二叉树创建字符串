@@ -66,7 +66,7 @@ class Solution {
             return;
         }
         if (stringbuilder.length() != 0) {
-        stringbuilder.append("(");            
+            stringbuilder.append("(");            
         }
         stringbuilder.append(t.val);
         tree2strHelper(t.left);
@@ -75,7 +75,5 @@ class Solution {
         }
         tree2strHelper(t.right);   
         stringbuilder.append(")");
-
-        
     }
 }
