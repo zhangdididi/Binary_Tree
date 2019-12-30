@@ -1,5 +1,5 @@
 //先比较根结点，递归左，递归右
-public static Node find (Node root, char toFInd) {
+public static TreeNode find (TreeNode root, char toFInd) {
     if (root == null) {
         return null;
     }
@@ -7,7 +7,7 @@ public static Node find (Node root, char toFInd) {
         return root;
     }
     //递归找左子树
-    Node ret = find(root.left, toFInd);
+    TreeNode ret = find(root.left, toFInd);
     if (ret != null) {
         return ret;
     }
