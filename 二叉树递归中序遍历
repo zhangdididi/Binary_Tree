@@ -24,22 +24,19 @@ class Solution {
 
 
 //迭代方法
-class Solution {
-    public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
-        if (root == null) return res;
-        Stack<TreeNode> stack = new Stack<>();
-        TreeNode curNode = root;
-        while (true) {
-            while (curNode != null) {
-                stack.push(curNode);
-                curNode = curNode.left;
-            }
-            if (stack.isEmpty()) break;
-            TreeNode top = stack.pop();
-            res.add(top.val);
-            curNode = top.right;
+public List<Integer> inorderTraversal(TreeNode root) {
+    List<Integer> res = new ArrayList<>();
+    if (root == null) return res;
+    Stack<TreeNode> stack = new Stack<>();
+    TreeNode curr = root;
+    while (curr != null || !stack.isEmpty()) {
+        while (curr != null) {
+            stack.push(curr);
+            curr = curr.left;
         }
-        return res;
+        curr = stack.pop();
+        res.add(curr.val);
+        curr = curr.right;
     }
+    return res;
 }
