@@ -6,7 +6,7 @@
 链接：https://leetcode-cn.com/problems/convert-bst-to-greater-tree
 */
 
-
+//递归
 class Solution {
     private int num = 0;
     public TreeNode convertBST(TreeNode root) {
@@ -18,5 +18,26 @@ class Solution {
             return root;
         }
         return null;
+    }
+}
+
+//栈迭代
+class Solution {
+    public TreeNode convertBST(TreeNode root) {
+        int sum = 0;
+        if (root == null) return null;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode curr = root;
+        while (!stack.isEmpty() || curr != null) {
+            while (curr != null) {
+                stack.push(curr);
+                curr = curr.right;
+            }
+            TreeNode top = stack.pop();
+            sum += top.val;
+            top.val = sum;
+            curr = top.left;
+        }
+        return root;
     }
 }
