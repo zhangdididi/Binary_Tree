@@ -1,0 +1,23 @@
+/*
+给定一棵二叉树，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
+*/
+
+class Solution {
+
+    public List<Integer> res = new ArrayList<>();
+
+    public List<Integer> rightSideView(TreeNode root) {
+        if (root == null) return res;
+        helper(root, 1);
+        return res;
+    }
+
+    private void helper(TreeNode root, int level) {
+        if (root == null) return;
+        if (level > res.size()) {
+            res.add(root.val);
+        }
+        helper(root.right, level + 1);
+        helper(root.left, level + 1);
+    }
+}
