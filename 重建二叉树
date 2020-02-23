@@ -3,3 +3,44 @@
 假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例
 如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回
 */
+
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public TreeNode reConstructBinaryTree(int [] pre,int [] in) {
+        //如果数组为空或者长度为0
+        if (pre == null || in == null || pre.length <= 0) {
+            throw new RuntimeException("Array is empty!!!");
+        }
+        TreeNode root = reConstructHelper(pre, 0, pre.length - 1, in, 0, in.length - 1);
+        return root;
+    }
+    
+    private TreeNode reConstructHelper(int[] pre, int preLeft, int preRight, int[] in, int inLeft, int inRight) {
+        //如果两个数组没有元素的话，就返回空
+        if (preLeft > preRight || inLeft > inRight) {
+            return null;
+        }
+        //先从先序遍历的第一个元素找到根节点的值
+        int value = pre[preLeft];
+        //构建一个根结点
+        TreeNode root = new TreeNode(value);
+        //如果左右子树都为空就返回根结点，即两个数组长度相等都为1时
+        //循环在中序数组中查找根结点的值，左半部分就是左子树的结点值，右半部分就是右子树的结点值
+        for (int curr = 0; curr < in.length; curr++) {
+            if (in[curr] == value) {
+                root.left = reConstructHelper(pre, preLeft + 1, curr - inLeft + preLeft, in, inLeft, curr - 1);
+                root.right = reConstructHelper(pre, curr - inLeft + preLeft + 1, preRight, in, curr + 1, inRight);
+                break;
+            }
+        }
+        return root;
+    }
+}
