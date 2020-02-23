@@ -44,3 +44,44 @@ public class Solution {
         return root;
     }
 }
+
+import java.util.Arrays;
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public TreeNode reConstructBinaryTree(int [] pre,int [] in) {
+        //如果数组为空或者长度为0
+        if (pre == null || in == null || pre.length <= 0) {
+            return null;
+        }
+        //先取先序遍历数组第一个元素为根结点的值
+        int value = pre[0];
+        if (pre.length == 1) {
+            return new TreeNode(value);
+        }
+        //先创建好根结点
+        TreeNode root = new TreeNode(value);
+        int index = 0;
+        //在in中找根结点的值，找到则保存下标
+        for (int i = 0; i < in.length; i++) {
+            if (value == in[i]) {
+                index = i;
+                break;
+            }
+        }
+        int[] preLeft = Arrays.copyOfRange(pre, 1, index + 1);
+        int[] preRight = Arrays.copyOfRange(pre, index + 1, pre.length);
+        int[] inLeft = Arrays.copyOfRange(in, 0, index);
+        int[] inRight = Arrays.copyOfRange(in, index + 1, in.length);
+        root.left = reConstructBinaryTree(preLeft, inLeft);
+        root.right = reConstructBinaryTree(preRight, inRight);
+        return root;
+    }
+}
