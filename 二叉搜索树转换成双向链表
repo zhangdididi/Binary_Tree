@@ -8,27 +8,44 @@
 //  把右侧链表的头结点和当前结点相互指向
 // 返回整个链表头结点
 
-public TreeNode Convert(TreeNode root) {
-    if (root == null) {
-        return null;
+/**
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
     }
-    if (root.left == null && root.right == null) {
-        return root;
+
+}
+*/
+public class Solution {
+    public TreeNode Convert(TreeNode root) {
+        //如果根结点为空，就返回null
+        if (root == null) return null;
+        //如果根结点左右子树都为空，就返回根结点
+        if (root.left == null && root.right == null) {
+            return root;
+        }
+        //转换左子树，找到左子树的末尾结点
+        TreeNode left = Convert(root.left);
+        TreeNode leftTail = left;
+        while (leftTail != null && leftTail.right != null) {
+            leftTail = leftTail.right;
+        }
+        //将根结点和左子树的末尾结点连接
+        if (left != null) {
+            leftTail.right = root;
+            root.left = leftTail;
+        }
+        //再转换右子树，找到右子树的开头结点，和根结点相连
+        TreeNode right = Convert(root.right);
+        if (right != null) {
+            right.left = root;
+            root.right = right;
+        }
+        return left == null ? root : left;
     }
-    TreeNode left = Convert(root.left);
-    TreeNode leftTail = left;//左侧链表头结点
-    while (leftTail != null && leftTail.right != null) {
-        leftTail = leftTail.right;
-    }
-    //循环结束，leftTail 就指向左侧链表最后一个结点
-    if (left != null) {
-        leftTail.right = root;
-        root.left = leftTail;
-    }
-    TreeNode right = Convert(root.right);
-    if (right != null) {
-        root.right = right;
-        right.left = root;
-    }
-    return left == null ? root : left;
 }
