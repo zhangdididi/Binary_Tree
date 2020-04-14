@@ -11,6 +11,7 @@
 public class LCA {
     public int getLCA(int a, int b) {
         while (a != b) {
+            //通过不断地 /=2 ，来找到当前分支的父结点，直到两个父结点相同。
             if (a > b) {
                 a /= 2;
             } else 
