@@ -52,23 +52,28 @@ class Solution {
 }
 
 
-//迭代方法
-class Solution {
-    public List<Integer> postorderTraversal(TreeNode root) {
-        LinkedList<Integer> res = new LinkedList<>();
-        if (root == null) return res;
-        LinkedList<TreeNode> list = new LinkedList<>();
-        list.add(root);
-        while (!list.isEmpty()) {
-            TreeNode temp = list.pollLast();
-            res.addFirst(temp.val);
-            if (temp.left != null) {
-                list.add(temp.left);
-            }
-            if (temp.right != null) {
-                list.add(temp.right);
-            }
+public static void postOrder(TreeNode root) {
+    if (root == null) return;
+    Stack<TreeNode> stack = new Stack<>();
+    TreeNode curr = root;
+    TreeNode prev = null;
+    while (true) {
+        while (curr != null) {
+            stack.push(curr);
+            curr = curr.left;
         }
-        return res;
+        if (stack.isEmpty()) {
+            break;
+        }
+       TreeNode top = stack.peek();
+        if (top.right == null || top.right == prev) {
+            //说明该右节点已经被遍历到
+            stack.pop();
+            System.out.println(top.val);
+            prev = top;
+        } else {
+            curr = top.right;
+        }
+
     }
 }
