@@ -28,7 +28,6 @@ class Solution {
 }
 
 
-
 public boolean isComplete1(TreeNode root) {
     if (root == null) {
         return true;
