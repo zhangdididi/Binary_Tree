@@ -1,0 +1,86 @@
+package dison;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    public TreeNode(int val) {
+        this.val = val;
+    }
+}
+
+public class Main {
+
+
+    public static void main(String[] args) {
+        Integer[] nums = new Integer[]{5,4,8,11,null,13,4,7,2, null,null,5,1,8,null,7,10,6,null,null,null};
+        int K = 35;
+        TreeNode root = buildTree(nums);
+
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        ArrayList<Integer> list = new ArrayList<>();
+        sumK(root, list, res, K);
+        System.out.println(res);
+    }
+
+
+    private static void sumK(TreeNode root, ArrayList<Integer> list, ArrayList<ArrayList<Integer>> res, int K) {
+        if (root == null) return;
+        list.add(root.val);
+        K -= root.val;
+        if (K == 0) {
+            res.add(list);
+            return;
+        }
+        sumK(root.left, list, res, K);
+        sumK(root.right, list, res, K);
+
+        //删除最后一个元素
+        list.remove(list.size() - 1);
+        K += root.val;
+    }
+
+    /**
+     * 通过层序来构建二叉树
+     * @param nums 数组
+     * @return 头结点
+     */
+    private static TreeNode buildTree(Integer[] nums) {
+        if (nums == null || nums.length == 0) {
+            return null;
+        }
+        //先建根结点
+        TreeNode root = new TreeNode(nums[0]);
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        //index表示数组遍历位置,从1开始
+        int index = 1;
+        //用来指向当前位置的结点
+        TreeNode curr = null;
+        //value来表示当前数组元素
+        Integer value = 0;
+        while (index < nums.length) {
+            curr = queue.poll();
+            //取到该节点的左节点值
+            value = nums[index++];
+            if (value != null) {
+                TreeNode left = new TreeNode(value);
+                curr.left = left;
+                queue.offer(left);
+            }
+
+            //取到curr的右结点值
+            value = nums[index++];
+            if (value != null) {
+                TreeNode right = new TreeNode(value);
+                curr.right = right;
+                queue.offer(right);
+            }
+        }
+        return root;
+    }
+}
