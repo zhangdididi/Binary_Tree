@@ -17,6 +17,7 @@ public boolean isBalanced(TreeNode root) {
     return isBalanced(root.left) && isBalanced(root.right);
 }
 
+
 private int maxDepth(TreeNode root) {
     //空树为0
     if (root == null) {
