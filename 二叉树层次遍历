@@ -22,6 +22,7 @@ public class Test {
         return res;
     }
     
+    
     private void helper(TreeNode root, int level) {
         //超出有效范围就新加一个
         if (level == res.size()) {
