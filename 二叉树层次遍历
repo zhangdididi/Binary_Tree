@@ -9,7 +9,7 @@ public class Test {
             this.val = val;
         }
     }
-    
+ 
     List<List<Integer>> res = new ArrayList<>();
     public List<List<Integer>> levelOrder(TreeNode root) {
         //1. 先序遍历解决，递归时候参数上加上当前一个层数
